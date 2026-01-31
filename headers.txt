@@ -1,0 +1,18 @@
+METHOD: POST
+URL
+https://sgp-api.buy.mi.com/bbs/api/global/apply/bl-auth
+HEADERS
+Accept-Encoding:
+gzip
+Connection:
+Keep-Alive
+Content-Length:
+17
+Content-Type:
+application/json; charset=utf-8
+Cookie:
+new_bbs_serviceToken=6vyARhwq7McgF0a1EFljs7bkAU432n%VJQ0LhsHRroStZWR5QkjULmoX7kUr7G%nq8gbzUhVoh50BywWEyBQHIN5wa2CA0qoI6K2NWeB7LCSV5WwNCjKPvlsrG43LJNHUUWVl45IMVRXz5vNQQ5Cm0yESlueWcqrMbvoaDMyFwrKmMZB3B;versionCode=500415;versionName=5.4.15;deviceId=E6EE3CA339EFE0DF0DD6C9B4988826629E99DD5F;
+Host:
+sgp-api.buy.mi.com
+User-Agent:
+okhttp/4.12.0

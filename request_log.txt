@@ -1,0 +1,146 @@
+2025-04-21 13:48:46,513 - NUM_REQUESTS=100 is high and may trigger rate limits. Consider reducing to 5–10.
+2025-04-21 13:48:46,551 - Latency measurement 0 failed: Cannot connect to host 20.47.97.185:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1000)')]
+2025-04-21 13:48:46,553 - Test Request 0: Error=Cannot connect to host 20.47.97.185:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1000)')]
+2025-04-21 13:48:46,553 - Initial test request completed: {'status': None, 'text': "Cannot connect to host 20.47.97.185:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1000)')]", 'elapsed_ms': None}
+2025-04-21 13:48:46,586 - Latency measurement 1 failed: Cannot connect to host 20.47.97.185:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1000)')]
+2025-04-21 13:48:46,623 - Latency measurement 2 failed: Cannot connect to host 20.47.97.185:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1000)')]
+2025-04-21 13:48:46,659 - Latency measurement 3 failed: Cannot connect to host 20.47.97.185:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1000)')]
+2025-04-21 13:48:46,699 - Latency measurement 4 failed: Cannot connect to host 20.47.97.185:443 ssl:True [SSLCertVerificationError: (1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1000)')]
+2025-04-21 13:48:46,699 - Initial latency measurement completed: 1200.00ms
+2025-04-21 13:48:46,725 - Target time (Beijing): 2025-04-22 00:00:00+08:00
+2025-04-21 13:48:46,725 - Adjusted send time (Beijing): 2025-04-21 23:59:58.058000+08:00
+2025-04-21 13:48:46,725 - Adjusted send time (UTC): 2025-04-21 15:59:58.058000+00:00
+2025-04-21 13:48:46,725 - Adjusted send time (Local, GMT+1): 2025-04-21 17:59:58.058000+02:00
+2025-04-21 13:49:36,926 - NUM_REQUESTS=100 is high and may trigger rate limits. Consider reducing to 5–10.
+2025-04-21 13:50:00,864 - NUM_REQUESTS=100 is high and may trigger rate limits. Consider reducing to 5–10.
+2025-04-21 13:50:01,630 - Test Request 0: Status=200, Sent at=2025-04-21T11:50:00.864616+00:00, Estimated arrival (Beijing)=2025-04-21T19:50:01.604287+08:00, Latency=739.67ms, Response={"code":0,"data":{"apply_result":3,"deadline":1745251200,"deadline_format":"04/22 00:00"},"msg":"success","tc":"358203692216","ts":1745236204}
+2025-04-21 13:50:01,630 - Initial test request completed: {'status': 200, 'text': '{"code":0,"data":{"apply_result":3,"deadline":1745251200,"deadline_format":"04/22 00:00"},"msg":"success","tc":"358203692216","ts":1745236204}', 'elapsed_ms': 739.6709999999999}
+2025-04-21 13:50:01,639 - Latency measurement 0: 772.70ms
+2025-04-21 13:50:02,336 - Latency measurement 1: 697.63ms
+2025-04-21 13:50:02,969 - Latency measurement 2: 632.57ms
+2025-04-21 13:50:03,622 - Latency measurement 3: 653.17ms
+2025-04-21 13:50:04,237 - Latency measurement 4: 614.56ms
+2025-04-21 13:50:04,237 - Updated LATENCY_MS: 674.13ms
+2025-04-21 13:50:04,237 - Initial latency measurement completed: 674.13ms
+2025-04-21 13:50:04,238 - Target time (Beijing): 2025-04-22 00:00:00+08:00
+2025-04-21 13:50:04,238 - Adjusted send time (Beijing): 2025-04-21 23:59:58.583872+08:00
+2025-04-21 13:50:04,238 - Adjusted send time (UTC): 2025-04-21 15:59:58.583872+00:00
+2025-04-21 13:50:04,238 - Adjusted send time (Local, GMT+1): 2025-04-21 17:59:58.583872+02:00
+2025-04-21 14:02:53,359 - NUM_REQUESTS=100 is high and may trigger rate limits. Consider reducing to 5–10.
+2025-04-21 14:04:32,946 - NUM_REQUESTS=100 is high and may trigger rate limits. Consider reducing to 5–10.
+2025-04-21 14:04:33,350 - Latency measurement 0: 401.87ms
+2025-04-21 14:04:33,389 - Test Request 0: Status=200, Sent at=2025-04-21T12:04:32.946051+00:00, Estimated arrival (Beijing)=2025-04-21T20:04:33.364936+08:00, Latency=418.88ms, Response={"code":100004,"data":null,"msg":"need login"}
+2025-04-21 14:04:33,389 - Initial test request completed: {'status': 200, 'text': '{"code":100004,"data":null,"msg":"need login"}', 'elapsed_ms': 418.885}
+2025-04-21 14:04:33,770 - Latency measurement 1: 419.28ms
+2025-04-21 14:04:34,157 - Latency measurement 2: 387.36ms
+2025-04-21 14:04:34,551 - Latency measurement 3: 394.36ms
+2025-04-21 14:04:34,940 - Latency measurement 4: 388.35ms
+2025-04-21 14:04:34,940 - Updated LATENCY_MS: 398.24ms
+2025-04-21 14:04:34,940 - Initial latency measurement completed: 398.24ms
+2025-04-21 14:04:34,941 - Target time (Beijing): 2025-04-22 00:00:00+08:00
+2025-04-21 14:04:34,941 - Adjusted send time (Beijing): 2025-04-21 23:59:58.859756+08:00
+2025-04-21 14:04:34,941 - Adjusted send time (UTC): 2025-04-21 15:59:58.859756+00:00
+2025-04-21 14:04:34,941 - Adjusted send time (Local, GMT+1): 2025-04-21 17:59:58.859756+02:00
+2025-04-21 14:05:04,814 - NUM_REQUESTS=100 is high and may trigger rate limits. Consider reducing to 5–10.
+2025-04-21 14:05:05,310 - Test Request 0: Status=200, Sent at=2025-04-21T12:05:04.814789+00:00, Estimated arrival (Beijing)=2025-04-21T20:05:05.285721+08:00, Latency=470.93ms, Response={"code":100004,"data":null,"msg":"need login"}
+2025-04-21 14:05:05,310 - Initial test request completed: {'status': 200, 'text': '{"code":100004,"data":null,"msg":"need login"}', 'elapsed_ms': 470.932}
+2025-04-21 14:05:05,311 - Latency measurement 0: 494.95ms
+2025-04-21 14:05:05,705 - Latency measurement 1: 394.20ms
+2025-04-21 14:05:06,092 - Latency measurement 2: 386.35ms
+2025-04-21 14:05:06,487 - Latency measurement 3: 395.36ms
+2025-04-21 14:05:06,874 - Latency measurement 4: 386.48ms
+2025-04-21 14:05:06,874 - Updated LATENCY_MS: 411.47ms
+2025-04-21 14:05:06,874 - Initial latency measurement completed: 411.47ms
+2025-04-21 14:05:06,875 - Target time (Beijing): 2025-04-22 00:00:00+08:00
+2025-04-21 14:05:06,875 - Adjusted send time (Beijing): 2025-04-21 23:59:58.846530+08:00
+2025-04-21 14:05:06,875 - Adjusted send time (UTC): 2025-04-21 15:59:58.846530+00:00
+2025-04-21 14:05:06,875 - Adjusted send time (Local, GMT+1): 2025-04-21 17:59:58.846530+02:00
+2025-04-21 14:09:33,177 - NUM_REQUESTS=100 is high and may trigger rate limits. Consider reducing to 5–10.
+2025-04-21 14:09:33,850 - Test Request 0: Status=200, Sent at=2025-04-21T12:09:33.177986+00:00, Estimated arrival (Beijing)=2025-04-21T20:09:33.821570+08:00, Latency=643.58ms, Response={"code":0,"data":{"apply_result":3,"deadline":1745251200,"deadline_format":"04/22 00:00"},"msg":"success","tc":"262375785089","ts":1745237376}
+2025-04-21 14:09:33,850 - Initial test request completed: {'status': 200, 'text': '{"code":0,"data":{"apply_result":3,"deadline":1745251200,"deadline_format":"04/22 00:00"},"msg":"success","tc":"262375785089","ts":1745237376}', 'elapsed_ms': 643.5840000000001}
+2025-04-21 14:09:33,934 - Latency measurement 0: 754.68ms
+2025-04-21 14:09:34,562 - Latency measurement 1: 627.57ms
+2025-04-21 14:09:35,553 - Latency measurement 2: 990.90ms
+2025-04-21 14:09:36,179 - Latency measurement 3: 626.57ms
+2025-04-21 14:09:36,847 - Latency measurement 4: 667.61ms
+2025-04-21 14:09:36,848 - Updated LATENCY_MS: 733.47ms
+2025-04-21 14:09:36,848 - Initial latency measurement completed: 733.47ms
+2025-04-21 14:09:36,848 - Target time (Beijing): 2025-04-22 00:00:00+08:00
+2025-04-21 14:09:36,849 - Adjusted send time (Beijing): 2025-04-21 23:59:58.524534+08:00
+2025-04-21 14:09:36,849 - Adjusted send time (UTC): 2025-04-21 15:59:58.524534+00:00
+2025-04-21 14:09:36,849 - Adjusted send time (Local, GMT+1): 2025-04-21 17:59:58.524534+02:00
+2025-04-21 14:19:47,474 - NUM_REQUESTS=100 is high and may trigger rate limits. Consider reducing to 5–10.
+2025-04-21 14:19:48,141 - Latency measurement 0: 665.60ms
+2025-04-21 14:19:48,167 - Test Request 0: Status=200, Sent at=2025-04-21T12:19:47.474005+00:00, Estimated arrival (Beijing)=2025-04-21T20:19:48.142612+08:00, Latency=668.61ms, Response={"code":0,"data":{"apply_result":3,"deadline":1745251200,"deadline_format":"04/22 00:00"},"msg":"success","tc":"609990859546","ts":1745237990}
+2025-04-21 14:19:48,168 - Initial test request completed: {'status': 200, 'text': '{"code":0,"data":{"apply_result":3,"deadline":1745251200,"deadline_format":"04/22 00:00"},"msg":"success","tc":"609990859546","ts":1745237990}', 'elapsed_ms': 668.607}
+2025-04-21 14:19:48,783 - Latency measurement 1: 641.58ms
+2025-04-21 14:19:49,407 - Latency measurement 2: 624.57ms
+2025-04-21 14:19:50,045 - Latency measurement 3: 637.33ms
+2025-04-21 14:19:50,692 - Latency measurement 4: 647.59ms
+2025-04-21 14:19:50,692 - Updated LATENCY_MS: 643.33ms
+2025-04-21 14:19:50,693 - Initial latency measurement completed: 643.33ms
+2025-04-21 14:19:50,693 - Target time (Beijing): 2025-04-22 00:00:00+08:00
+2025-04-21 14:19:50,693 - Adjusted send time (Beijing): 2025-04-21 23:59:58.614665+08:00
+2025-04-21 14:19:50,693 - Adjusted send time (UTC): 2025-04-21 15:59:58.614665+00:00
+2025-04-21 14:19:50,693 - Adjusted send time (Local, GMT+1): 2025-04-21 17:59:58.614665+02:00
+2025-04-21 15:31:06,624 - NUM_REQUESTS=100 is high and may trigger rate limits. Consider reducing to 5–10.
+2025-04-21 15:31:07,257 - Latency measurement 0: 631.57ms
+2025-04-21 15:31:07,305 - Test Request 0: Status=200, Sent at=2025-04-21T13:31:06.624057+00:00, Estimated arrival (Beijing)=2025-04-21T21:31:07.268642+08:00, Latency=644.58ms, Response={"code":0,"data":{"apply_result":3,"deadline":1745251200,"deadline_format":"04/22 00:00"},"msg":"success","tc":"589269994901","ts":1745242269}
+2025-04-21 15:31:07,305 - Initial test request completed: {'status': 200, 'text': '{"code":0,"data":{"apply_result":3,"deadline":1745251200,"deadline_format":"04/22 00:00"},"msg":"success","tc":"589269994901","ts":1745242269}', 'elapsed_ms': 644.5849999999999}
+2025-04-21 15:31:07,905 - Latency measurement 1: 646.59ms
+2025-04-21 15:31:08,557 - Latency measurement 2: 652.59ms
+2025-04-21 15:31:09,211 - Latency measurement 3: 653.59ms
+2025-04-21 15:31:09,826 - Latency measurement 4: 615.56ms
+2025-04-21 15:31:09,826 - Updated LATENCY_MS: 639.98ms
+2025-04-21 15:31:09,826 - Initial latency measurement completed: 639.98ms
+2025-04-21 15:31:09,827 - Target time (Beijing): 2025-04-22 00:00:00+08:00
+2025-04-21 15:31:09,827 - Adjusted send time (Beijing): 2025-04-21 23:59:58.618019+08:00
+2025-04-21 15:31:09,827 - Adjusted send time (UTC): 2025-04-21 15:59:58.618019+00:00
+2025-04-21 15:31:09,827 - Adjusted send time (Local, GMT+1): 2025-04-21 17:59:58.618019+02:00
+2025-04-21 17:14:18,989 - NUM_REQUESTS=100 is high and may trigger rate limits. Consider reducing to 5–10.
+2025-04-21 17:14:19,679 - Latency measurement 0: 687.62ms
+2025-04-21 17:14:19,870 - Test Request 0: Status=200, Sent at=2025-04-21T15:14:18.989110+00:00, Estimated arrival (Beijing)=2025-04-21T23:14:19.844887+08:00, Latency=855.78ms, Response={"code":0,"data":{"apply_result":3,"deadline":1745251200,"deadline_format":"04/22 00:00"},"msg":"success","tc":"906461714935","ts":1745248462}
+2025-04-21 17:14:19,870 - Initial test request completed: {'status': 200, 'text': '{"code":0,"data":{"apply_result":3,"deadline":1745251200,"deadline_format":"04/22 00:00"},"msg":"success","tc":"906461714935","ts":1745248462}', 'elapsed_ms': 855.777}
+2025-04-21 17:14:20,290 - Latency measurement 1: 610.55ms
+2025-04-21 17:14:20,922 - Latency measurement 2: 632.57ms
+2025-04-21 17:14:21,560 - Latency measurement 3: 637.58ms
+2025-04-21 17:14:22,178 - Latency measurement 4: 617.56ms
+2025-04-21 17:14:22,178 - Updated LATENCY_MS: 637.18ms
+2025-04-21 17:14:22,179 - Initial latency measurement completed: 637.18ms
+2025-04-21 17:14:22,179 - Target time (Beijing): 2025-04-22 00:00:00+08:00
+2025-04-21 17:14:22,180 - Adjusted send time (Beijing): 2025-04-21 23:59:58.620822+08:00
+2025-04-21 17:14:22,180 - Adjusted send time (UTC): 2025-04-21 15:59:58.620822+00:00
+2025-04-21 17:14:22,180 - Adjusted send time (Local, GMT+1): 2025-04-21 17:59:58.620822+02:00
+2025-04-21 17:39:20,138 - NUM_REQUESTS=100 is high and may trigger rate limits. Consider reducing to 5–10.
+2025-04-21 17:39:20,804 - Latency measurement 0: 662.60ms
+2025-04-21 17:39:20,830 - Test Request 0: Status=200, Sent at=2025-04-21T15:39:20.139432+00:00, Estimated arrival (Beijing)=2025-04-21T23:39:20.804035+08:00, Latency=664.60ms, Response={"code":0,"data":{"apply_result":3,"deadline":1745251200,"deadline_format":"04/22 00:00"},"msg":"success","tc":"844960960242","ts":1745249960}
+2025-04-21 17:39:20,830 - Initial test request completed: {'status': 200, 'text': '{"code":0,"data":{"apply_result":3,"deadline":1745251200,"deadline_format":"04/22 00:00"},"msg":"success","tc":"844960960242","ts":1745249960}', 'elapsed_ms': 664.6030000000001}
+2025-04-21 17:39:21,443 - Latency measurement 1: 639.58ms
+2025-04-21 17:39:22,119 - Latency measurement 2: 675.61ms
+2025-04-21 17:39:22,744 - Latency measurement 3: 625.57ms
+2025-04-21 17:39:23,357 - Latency measurement 4: 612.56ms
+2025-04-21 17:39:23,357 - Updated LATENCY_MS: 643.18ms
+2025-04-21 17:39:23,358 - Initial latency measurement completed: 643.18ms
+2025-04-21 17:39:23,358 - Target time (Beijing): 2025-04-22 00:00:00+08:00
+2025-04-21 17:39:23,358 - Adjusted send time (Beijing): 2025-04-21 23:59:58.614816+08:00
+2025-04-21 17:39:23,358 - Adjusted send time (UTC): 2025-04-21 15:59:58.614816+00:00
+2025-04-21 17:39:23,359 - Adjusted send time (Local, GMT+1): 2025-04-21 17:59:58.614816+02:00
+2025-04-21 17:59:58,625 - Sending request wave...
+2025-04-21 17:59:59,388 - Request 0: Status=200, Sent at=2025-04-21T15:59:58.625625+00:00, Estimated arrival (Beijing)=2025-04-21T23:59:59.388318+08:00, Latency=762.69ms, Response={"code":0,"data":{"apply_result":3,"deadline":1745251200,"deadline_format":"04/22 00:00"},"msg":"success","tc":"772198890572","ts":1745251199}
+2025-04-21 18:00:00,082 - Request 1: Status=200, Sent at=2025-04-21T15:59:59.389319+00:00, Estimated arrival (Beijing)=2025-04-22T00:00:00.082950+08:00, Latency=693.63ms, Response={"code":0,"data":{"apply_result":3,"deadline":1745251200,"deadline_format":"04/22 00:00"},"msg":"success","tc":"667199871438","ts":1745251200}
+2025-04-21 18:00:02,763 - Request 2: Status=200, Sent at=2025-04-21T16:00:00.083950+00:00, Estimated arrival (Beijing)=2025-04-22T00:00:02.763388+08:00, Latency=2679.44ms, Response={"code":0,"data":{"apply_result":3,"deadline":1745337600,"deadline_format":"04/23 00:00"},"msg":"success","tc":"687200059010","ts":1745251202}
+2025-04-21 18:00:02,763 - Aborting wave: code=0, apply_result=3, deadline=1745337600
+2025-05-02 20:13:25,919 - NUM_REQUESTS=100 is high and may trigger rate limits. Consider reducing to 5–10.
+2025-05-02 20:13:26,605 - Latency measurement 0: 679.62ms
+2025-05-02 20:13:26,652 - Test Request 0: Status=200, Sent at=2025-05-02T18:13:25.920945+00:00, Estimated arrival (Beijing)=2025-05-03T02:13:26.626587+08:00, Latency=705.64ms, Response={"code":0,"data":{"apply_result":3,"deadline":1746288000,"deadline_format":"05/04 00:00"},"msg":"success","tc":"926611067713","ts":1746209612}
+2025-05-02 20:13:26,652 - Initial test request completed: {'status': 200, 'text': '{"code":0,"data":{"apply_result":3,"deadline":1746288000,"deadline_format":"05/04 00:00"},"msg":"success","tc":"926611067713","ts":1746209612}', 'elapsed_ms': 705.6419999999999}
+2025-05-02 20:13:27,221 - Latency measurement 1: 615.91ms
+2025-05-02 20:13:27,845 - Latency measurement 2: 623.57ms
+2025-05-02 20:13:28,506 - Latency measurement 3: 661.60ms
+2025-05-02 20:13:29,180 - Latency measurement 4: 673.61ms
+2025-05-02 20:13:29,180 - Updated LATENCY_MS: 650.86ms
+2025-05-02 20:13:29,180 - Initial latency measurement completed: 650.86ms
+2025-05-02 20:13:29,181 - Target time (Beijing): 2025-05-04 00:00:00+08:00
+2025-05-02 20:13:29,181 - Adjusted send time (Beijing): 2025-05-03 23:59:58.607138+08:00
+2025-05-02 20:13:29,181 - Adjusted send time (UTC): 2025-05-03 15:59:58.607138+00:00
+2025-05-02 20:13:29,181 - Adjusted send time (Local, GMT+1): 2025-05-03 17:59:58.607138+02:00
