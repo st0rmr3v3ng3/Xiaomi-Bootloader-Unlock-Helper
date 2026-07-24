@@ -3,7 +3,6 @@ import json
 import logging
 from datetime import datetime, timedelta
 
-import aiohttp
 import pytz
 
 class RequestSender:
@@ -40,36 +39,63 @@ class RequestSender:
             logging.error(error_message)
             return {"status": None, "text": str(e), "elapsed_ms": None}
 
-    async def send_request_wave(self, num_requests, stagger_ms, abort_event):
-        """Send a wave of staggered requests, aborting only for unexpected responses."""
-        async with aiohttp.ClientSession() as session:
-            for i in range(num_requests):
-                if abort_event.is_set():
-                    logging.info("Wave aborted due to unexpected response.")
-                    break
+    @staticmethod
+    def _should_abort(response):
+        """
+        Decide whether a response means we should stop the wave.
 
-                # Send a single request and check its response
-                response = await self.send_single_request(session, i)
+        Keep firing ONLY while the quota simply isn't ours yet, i.e.
+        code == 0 and apply_result == 3 (quota exhausted / not open). Anything
+        else means there is no point spamming further:
+          apply_result == 1  -> approved (we won)
+          apply_result == 4  -> account blocked
+          code != 0          -> token/other error
 
-                # Check response for abortion conditions
-                if response["status"] is not None:  # Continue on timeout
-                    try:
-                        resp_json = json.loads(response["text"])
-                        code = resp_json.get("code")
-                        apply_result = resp_json.get("data", {}).get("apply_result")
-                        deadline = resp_json.get("data", {}).get("deadline")
-                        # Continue if code == 0, apply_result == 3, deadline == April 22, 2025
-                        # Abort if code != 0, apply_result != 3, or deadline == April 23, 2025
-                        if not (code == 0 and
-                                apply_result == 3 and
-                                deadline == 1745251200):  # April 22, 2025, 00:00:00 Beijing
-                            logging.info(
-                                f"Aborting wave: code={code}, apply_result={apply_result}, deadline={deadline}")
-                            abort_event.set()
-                            break
-                    except json.JSONDecodeError:
-                        logging.error("Invalid JSON response, continuing wave.")
+        The previous implementation additionally required the response's
+        `deadline` to equal a hard-coded Unix timestamp (April 22, 2025). That
+        made the script abort on EVERY response on any other date, so the wave
+        stopped after the first request. Matching on apply_result alone is
+        date-agnostic and future-proof.
+        """
+        if response["status"] is None:
+            return False  # network error / timeout -> keep trying
+        try:
+            resp_json = json.loads(response["text"])
+        except json.JSONDecodeError:
+            logging.error("Invalid JSON response, continuing wave.")
+            return False
+        code = resp_json.get("code")
+        apply_result = resp_json.get("data", {}).get("apply_result")
+        if code == 0 and apply_result == 3:
+            return False  # quota not ours yet -> keep firing
+        logging.info(f"Stopping wave: code={code}, apply_result={apply_result}")
+        return True
 
-                # Stagger the next request
-                if i < num_requests - 1:  # No sleep after the last request
-                    await asyncio.sleep(stagger_ms / 1000)  # Convert ms to seconds
+    async def send_request_wave(self, session, num_requests, stagger_ms, abort_event):
+        """
+        Fire the wave CONCURRENTLY on a shared, pre-warmed session.
+
+        The previous version awaited each request's full response before sending
+        the next one. Because every round trip is ~200-300 ms, that serialised
+        the "wave" into num_requests * RTT of wall-clock time (e.g. 100 requests
+        ~= 25 s) — the packets dribbled out over tens of seconds and mostly
+        arrived long after the quota was gone. Here every request is launched as
+        its own task (optionally spread by a few ms via `stagger_ms`) and they
+        all fly in parallel, so the whole burst lands inside the first fraction
+        of a second after the quota opens.
+
+        `session` is created and kept warm by the caller so the first (and most
+        important) request does not pay for the TLS handshake at fire time.
+        """
+        async def fire(index):
+            # Spread launches slightly so we don't emit every packet on the
+            # exact same microsecond, but never wait on another request's reply.
+            if stagger_ms:
+                await asyncio.sleep(index * stagger_ms / 1000)
+            if abort_event.is_set():
+                return
+            response = await self.send_single_request(session, index)
+            if self._should_abort(response):
+                abort_event.set()
+
+        await asyncio.gather(*(fire(i) for i in range(num_requests)))

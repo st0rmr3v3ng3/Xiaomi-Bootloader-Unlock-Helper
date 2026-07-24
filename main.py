@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import time
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -8,12 +9,17 @@ import pytz
 
 from config_parser import ConfigParser
 from latency_measurer import LatencyMeasurer
+from ntp_sync import get_ntp_offset
 from request_sender import RequestSender
 from scheduler import Scheduler
 
 BASE_DIR = Path(__file__).resolve().parent
 HEADERS_FILE = BASE_DIR / "headers.txt"
 BODY_FILE = BASE_DIR / "body.json"
+
+NUM_REQUESTS = 100
+STAGGER_MS = 15
+CHECK_INTERVAL_MS = 5
 
 # Configure logging to file and console
 logging.basicConfig(
@@ -26,11 +32,10 @@ logging.basicConfig(
 )
 
 
-async def initial_test_request(request_sender):
+async def initial_test_request(request_sender, session):
     """Send a single test request on startup to verify script functionality."""
-    async with aiohttp.ClientSession() as session:
-        response = await request_sender.send_single_request(session, 0, log_prefix="Test Request")
-        logging.info(f"Initial test request completed: {response}")
+    response = await request_sender.send_single_request(session, 0, log_prefix="Test Request")
+    logging.info(f"Initial test request completed: {response}")
 
 
 async def initial_latency_measurement(latency_measurer):
@@ -41,7 +46,6 @@ async def initial_latency_measurement(latency_measurer):
 
 async def main():
     """Main entry point to start the scheduler and initial tasks."""
-    # Request details
     # Parse config files
     header_config = ConfigParser.parse_headers_file(HEADERS_FILE)
     data = ConfigParser.parse_body_file(BODY_FILE)
@@ -49,42 +53,54 @@ async def main():
     url = header_config["url"]
     headers = header_config["headers"]
 
+    # Measure the local clock's offset from real time once, up front. Every
+    # timing decision below is made against this corrected clock.
+    ntp_offset = await asyncio.get_event_loop().run_in_executor(None, get_ntp_offset)
+
     # Initialize components
     request_sender = RequestSender(url, headers, data, timeout_seconds=15)
     latency_measurer = LatencyMeasurer(url, headers, data, num_pings=5)
 
-    # Run initial test request and latency measurement concurrently
-    await asyncio.gather(
-        initial_test_request(request_sender),
-        initial_latency_measurement(latency_measurer)
+    # A single shared session for warm-up + the wave, with a connection pool
+    # large enough to hold all concurrent requests as keep-alive sockets.
+    connector = aiohttp.TCPConnector(
+        limit=NUM_REQUESTS + Scheduler.WARM_COUNT_CAP,
+        keepalive_timeout=30,
     )
+    async with aiohttp.ClientSession(connector=connector) as session:
+        # Run initial test request and latency measurement concurrently
+        await asyncio.gather(
+            initial_test_request(request_sender, session),
+            initial_latency_measurement(latency_measurer)
+        )
 
-    # Update latency for scheduler
-    latency_ms = latency_measurer.latency_ms
+        # Scheduling uses the MINIMUM measured round-trip latency
+        latency_ms = latency_measurer.min_latency_ms
 
-    # Set target time to 24:00:00 Beijing time
-    beijing_tz = pytz.timezone('Asia/Shanghai')
-    now = datetime.now(beijing_tz).replace(tzinfo=None)
-    target_time = now.replace(hour=0, minute=0, second=0, microsecond=0)
-    if target_time < now:
-        target_time += timedelta(days=1)  # Schedule for next midnight
-    target_time = beijing_tz.localize(target_time)
+        # Set target to the next Beijing midnight, on the NTP-corrected clock
+        beijing_tz = pytz.timezone('Asia/Shanghai')
+        corrected_now = datetime.fromtimestamp(time.time() + ntp_offset, tz=pytz.UTC).astimezone(beijing_tz)
+        target_time = corrected_now.replace(hour=0, minute=0, second=0, microsecond=0)
+        if target_time <= corrected_now:
+            target_time += timedelta(days=1)  # Schedule for next midnight
 
-    # Initialize and run scheduler
-    scheduler = Scheduler(
-        target_time=target_time,
-        latency_ms=latency_ms,
-        num_requests=100,
-        stagger_ms=15,
-        check_interval_ms=5,
-        request_sender=request_sender
-    )
+        # Warning: too many requests may trigger rate limits
+        if NUM_REQUESTS > 100:
+            logging.warning("NUM_REQUESTS is high and may trigger rate limits.")
 
-    # Warning: too many requests may trigger rate limits
-    if scheduler.num_requests > 100:
-        logging.warning("NUM_REQUESTS is high and may trigger rate limits.")
+        # Initialize and run scheduler
+        scheduler = Scheduler(
+            target_time=target_time,
+            latency_ms=latency_ms,
+            num_requests=NUM_REQUESTS,
+            stagger_ms=STAGGER_MS,
+            check_interval_ms=CHECK_INTERVAL_MS,
+            request_sender=request_sender,
+            session=session,
+            ntp_offset=ntp_offset,
+        )
 
-    await scheduler.schedule_requests()
+        await scheduler.schedule_requests()
 
 
 # Run the main async function

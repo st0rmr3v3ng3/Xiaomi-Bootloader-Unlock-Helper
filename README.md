@@ -32,6 +32,33 @@ Any changes made by Xiaomi since then **may break this script**.
 
 ---
 
+## Timing accuracy (what this fork improves)
+
+The whole game is landing the request in the first fraction of a second after
+the quota opens. These changes tighten that up:
+
+- **NTP-synced clock** — the schedule no longer trusts the local system clock
+  (routinely tens to hundreds of ms off; measured live on a laptop while
+  writing this). The offset is measured once and applied to every timing
+  decision.
+- **Concurrent request wave** — requests now fly in parallel via
+  `asyncio.gather` instead of awaiting each response before sending the next.
+  The old loop serialised on RTT, stretching a "wave" of 100 requests across
+  ~25 s; now the whole burst lands together.
+- **Pre-warmed keep-alive connections** — a shared session is primed a few
+  seconds before the shot so the first (and most important) request reuses an
+  open TLS socket instead of paying for a handshake at fire time.
+- **One-way latency, from the minimum** — sends at `target − RTT_min/2` so
+  packets *arrive* at midnight, using the minimum sample (network floor) rather
+  than the jitter-inflated average.
+- **Date-agnostic abort** — the wave-stop condition keys off `apply_result`
+  only, fixing a hard-coded 2025 `deadline` timestamp that otherwise stopped
+  the wave after a single request on any other day.
+
+No new dependencies — NTP uses the standard library.
+
+---
+
 ## How it works (high level)
 
 1. You intercept a legitimate bootloader unlock request from the **Xiaomi Community App** using a tool like **[HTTP Toolkit](https://httptoolkit.com/)** 

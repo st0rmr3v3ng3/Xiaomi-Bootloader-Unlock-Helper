@@ -11,10 +11,19 @@ class LatencyMeasurer:
         self.headers = headers
         self.data = data
         self.num_pings = num_pings
-        self.latency_ms = 1200  # Default latency
+        self.latency_ms = 1200      # Default average round-trip latency
+        self.min_latency_ms = 1200  # Default *minimum* round-trip latency
 
     async def measure_latency(self):
-        """Measure HTTP request latency by sending test requests."""
+        """
+        Measure HTTP round-trip latency by sending test requests.
+
+        We keep both the average (for logging) and the MINIMUM round-trip time.
+        Scheduling should use the minimum, not the average: the minimum is the
+        closest estimate of the true network floor, so using it never makes us
+        fire *late*, whereas the average is inflated by occasional slow samples
+        and would push the send time earlier than the packet actually needs.
+        """
         async with aiohttp.ClientSession() as session:
             latencies = []
             for i in range(self.num_pings):
@@ -28,5 +37,9 @@ class LatencyMeasurer:
                     logging.error(f"Latency measurement {i} failed: {str(e)}")
             if latencies:
                 self.latency_ms = sum(latencies) / len(latencies)
-                logging.info(f"Updated LATENCY_MS: {self.latency_ms:.2f}ms")
-            return self.latency_ms
+                self.min_latency_ms = min(latencies)
+                logging.info(
+                    f"Latency avg={self.latency_ms:.2f}ms, min={self.min_latency_ms:.2f}ms "
+                    f"(scheduling uses min)"
+                )
+            return self.min_latency_ms
